@@ -1540,7 +1540,8 @@ p.or:after {
  *********************************************************/
 
 .ps-room .battle-userlist {
-	left: 641px;
+	/* left: 641px; */
+	display: none;
 }
 .ps-room .battle-log {
 	position: absolute;
@@ -1555,9 +1556,10 @@ p.or:after {
 	border-right: 0;
 	border-top: 0;
 	border-bottom: 0;
+	/* display: none; */
 }
 .ps-room .battle-log-add {
-	position: absolute;
+	/* position: absolute;
 	bottom: 0;
 	left: 640px;
 	right: 0;
@@ -1568,7 +1570,8 @@ p.or:after {
 
 	padding: 3px 4px 0 4px;
 	border-right: 0;
-	border-bottom: 0;
+	border-bottom: 0; */
+	display: none;
 }
 .ps-room .battle {
 	border-top: 0;

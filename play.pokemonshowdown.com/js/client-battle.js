@@ -1,4 +1,15 @@
+const TURN_TIME = 25;
 (function ($) {
+
+	let count2 = 0;
+				document.addEventListener('mouseover', e => {
+					const moveIcons = e.target.closest('.movemenu');
+					if (!moveIcons) return;
+				  const from = e.relatedTarget;
+				  if (from instanceof Element && from.closest('.movemenu')) return;
+					count2 += 1;
+					console.log(`move icons hovered ${count2} times`);
+			  }, true);
 
 	var BattleRoom = this.BattleRoom = ConsoleRoom.extend({
 		type: 'battle',
@@ -292,10 +303,11 @@
 							switchViewpointButton
 						);
 					}
-				} else {
-					// is a player
-					this.$controls.html('<p>' + this.getTimerHTML() + '<button class="button" name="skipTurn"><i class="fa fa-step-forward"></i><br />Skip turn</button> <button class="button" name="goToEnd"><i class="fa fa-fast-forward"></i><br />Skip to end</button></p>');
-				}
+				} 
+				// else {
+				// 	// is a player
+				// 	this.$controls.html('<p>' + this.getTimerHTML() + '<button class="button" name="skipTurn"><i class="fa fa-step-forward"></i><br />Skip turn</button> <button class="button" name="goToEnd"><i class="fa fa-fast-forward"></i><br />Skip to end</button></p>');
+				// }
 				return;
 
 			}
@@ -466,53 +478,83 @@
 			}
 		},
 		timerInterval: 0,
+		timeLeft: TURN_TIME,
 		getTimerHTML: function (nextTick) {
-			var time = 'Timer';
+
+			// var time = 'Timer';
 			var timerTicking = (this.battle.kickingInactive && this.request && !this.request.wait && !(this.choice && this.choice.waiting)) ? ' timerbutton-on' : '';
 
 			if (!nextTick) {
-				var self = this;
-				if (this.timerInterval) {
-					clearInterval(this.timerInterval);
-					this.timerInterval = 0;
-				}
-				if (timerTicking) this.timerInterval = setInterval(function () {
-					var $timerButton = self.$('.timerbutton');
-					if ($timerButton.length) {
-						$timerButton.replaceWith(self.getTimerHTML(true));
-					} else {
-						clearInterval(self.timerInterval);
-						self.timerInterval = 0;
-					}
+				clearInterval(this.timerInterval);
+				this.timerInterval = setInterval(() => {
+					const html = this.getTimerHTML(true);
+					this.$('.timerbutton').replaceWith(html);
 				}, 1000);
-			} else if (this.battle.kickingInactive > 1) {
-				this.battle.kickingInactive--;
-				if (this.battle.graceTimeLeft) this.battle.graceTimeLeft--;
-				else if (this.battle.totalTimeLeft) this.battle.totalTimeLeft--;
-			}
-
-			if (this.battle.kickingInactive) {
-				var secondsLeft = this.battle.kickingInactive;
-				if (secondsLeft !== true) {
-					if (secondsLeft <= 10 && timerTicking) {
-						timerTicking = ' timerbutton-critical';
-					}
-					var minutesLeft = Math.floor(secondsLeft / 60);
-					secondsLeft -= minutesLeft * 60;
-					time = '' + minutesLeft + ':' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
-
-					secondsLeft = this.battle.totalTimeLeft;
-					if (secondsLeft) {
-						minutesLeft = Math.floor(secondsLeft / 60);
-						secondsLeft -= minutesLeft * 60;
-						time += ' | ' + minutesLeft + ':' + (secondsLeft < 10 ? '0' : '') + secondsLeft + ' total';
-					}
-				} else {
-					time = '-:--';
+			} else {
+				if (this.timeLeft > 0) {
+					this.timeLeft--;
+				} else if (!this._randomFired) {
+					this._randomFired = true;
+					clearInterval(this.timerInterval);
+      				this.timerInterval = 0;
+					this.sendRandom();
+      				console.log('hello');
 				}
 			}
+
+			const time = `${0}:${this.timeLeft < 10 ? '0' : ''}${this.timeLeft}`;
 			return '<button name="openTimer" class="button timerbutton' + timerTicking + '"><i class="fa fa-hourglass-start"></i> ' + time + '</button>';
+
+			
 		},
+	
+		// getTimerHTML: function (nextTick) {
+		// 	var time = 'Timer';
+		// 	var timerTicking = (this.battle.kickingInactive && this.request && !this.request.wait && !(this.choice && this.choice.waiting)) ? ' timerbutton-on' : '';
+
+		// 	if (!nextTick) {
+		// 		var self = this;
+		// 		if (this.timerInterval) {
+		// 			clearInterval(this.timerInterval);
+		// 			this.timerInterval = 0;
+		// 		}
+		// 		if (timerTicking) this.timerInterval = setInterval(function () {
+		// 			var $timerButton = self.$('.timerbutton');
+		// 			if ($timerButton.length) {
+		// 				$timerButton.replaceWith(self.getTimerHTML(true));
+		// 			} else {
+		// 				clearInterval(self.timerInterval);
+		// 				self.timerInterval = 0;
+		// 			}
+		// 		}, 1000);
+		// 	} else if (this.battle.kickingInactive > 1) {
+		// 		this.battle.kickingInactive--;
+		// 		if (this.battle.graceTimeLeft) this.battle.graceTimeLeft--;
+		// 		else if (this.battle.totalTimeLeft) this.battle.totalTimeLeft--;
+		// 	}
+
+		// 	if (this.battle.kickingInactive) {
+		// 		var secondsLeft = this.battle.kickingInactive;
+		// 		if (secondsLeft !== true) {
+		// 			if (secondsLeft <= 10 && timerTicking) {
+		// 				timerTicking = ' timerbutton-critical';
+		// 			}
+		// 			var minutesLeft = Math.floor(secondsLeft / 60);
+		// 			secondsLeft -= minutesLeft * 60;
+		// 			time = '' + minutesLeft + ':' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
+
+		// 			secondsLeft = this.battle.totalTimeLeft;
+		// 			if (secondsLeft) {
+		// 				minutesLeft = Math.floor(secondsLeft / 60);
+		// 				secondsLeft -= minutesLeft * 60;
+		// 				time += ' | ' + minutesLeft + ':' + (secondsLeft < 10 ? '0' : '') + secondsLeft + ' total';
+		// 			}
+		// 		} else {
+		// 			time = '-:--';
+		// 		}
+		// 	}
+		// 	return '<button name="openTimer" class="button timerbutton' + timerTicking + '"><i class="fa fa-hourglass-start"></i> ' + time + '</button>';
+		// },
 		uncheckMegaEvoX: function () {
 			this.$('input[name=megaevox]').prop('checked', false);
 		},
@@ -539,8 +581,22 @@
 				this.$('.movebuttons-z').hide();
 			}
 		},
-		updateTimer: function () {
-			this.$('.timerbutton').replaceWith(this.getTimerHTML());
+
+		_randomFired: false,
+		_lastTurn: null,
+
+		updateTimer: function (nextTick = false) {
+			if (this._lastTurn === null) {
+				this._lastTurn = this.battle.turn;
+				console.log(this.battle.turn);
+			}
+			if (!nextTick && this.battle.turn !== this._lastTurn) {
+				this.timeLeft = TURN_TIME;
+				this._lastTurn = this.battle.turn;
+				this._randomFired = false;
+			  }
+
+			this.$('.timerbutton').replaceWith(this.getTimerHTML(nextTick));
 		},
 		openTimer: function () {
 			app.addPopup(TimerPopup, { room: this });
@@ -749,9 +805,9 @@
 				if (canDynamax) {
 					checkboxes.push('<label class="megaevo"><input type="checkbox" name="dynamax" />&nbsp;Dynamax</label>');
 				}
-				if (canTerastallize) {
-					checkboxes.push('<label class="megaevo"><input type="checkbox" name="terastallize" />&nbsp;Terastallize<br />' + Dex.getTypeIcon(canTerastallize) + '</label>');
-				}
+				// if (canTerastallize) {
+				// 	checkboxes.push('<label class="megaevo"><input type="checkbox" name="terastallize" />&nbsp;Terastallize<br />' + Dex.getTypeIcon(canTerastallize) + '</label>');
+				// }
 				if (checkboxes.length) {
 					moveMenu += '<div class="megaevo-box">' + checkboxes.join('') + '</div>';
 				}
@@ -769,6 +825,16 @@
 					'<div class="movemenu">' + moveMenu + '</div>' +
 					'</div>'
 				);
+
+			// 	let count2 = 0;
+			// 	document.addEventListener('mouseover', e => {
+			// 		const moveIcons = e.target.closest('.movemenu');
+			// 		if (!moveIcons) return;
+			// 	  const from = e.relatedTarget;
+			// 	  if (from instanceof Element && from.closest('.movemenu')) return;
+			// 		count2 += 1;
+			// 		console.log(`move icons hovered ${count2} times`);
+			//   }, true);
 
 				var shiftControls = '';
 				if (this.battle.gameType === 'triples' && pos !== 1) {
@@ -1077,9 +1143,9 @@
 				}
 			}
 			buf += '</small></p>';
-			if (!this.finalDecision && !this.battle.hardcoreMode) {
-				buf += '<p><small><em>Waiting for opponent...</em></small> <button class="button" name="undoChoice">Cancel</button></p>';
-			}
+			// if (!this.finalDecision && !this.battle.hardcoreMode) {
+			// 	buf += '<p><small><em>Waiting for opponent...</em></small> <button class="button" name="undoChoice">Cancel</button></p>';
+			// }
 			return buf;
 		},
 
@@ -1092,12 +1158,44 @@
 		 * correct request.)
 		 */
 		sendDecision: function (message) {
+			logEl = document.querySelector('.battle-log .inner');
+			logEl.replaceChildren();
 			if (!$.isArray(message)) return this.send('/' + message + '|' + this.request.rqid);
 			var buf = '/choose ';
 			for (var i = 0; i < message.length; i++) {
 				if (message[i]) buf += message[i] + ',';
 			}
+			console.log(TURN_TIME - this.timeLeft);
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
+		},
+
+		sendRandom: function () {
+			logEl = document.querySelector('.battle-log .inner');
+			logEl.replaceChildren();
+
+			// const actions = ['move', 'switch'];
+			let randomNum = Math.floor(Math.random() * 3) + 1;
+			// let randomAction = actions[Math.floor(Math.random() * actions.length)];
+
+			// we are hoping the player will select their only possible move (switch)
+			// in the case of a faint instead of letting the timer go out
+
+			// const validSwitches = this.request.side.pokemon
+  			// 	.map((p, i) => ({ hp: p.hp, slot: i + 1 }))
+  			// 	.filter(x => x.hp > 0)
+  			// 	.map(x => x.slot);
+
+			// if (validSwitches.length == 1) {
+			// 	randomAction = 'move';
+			// }
+
+			// if (randomAction == 'switch') {
+			// 	const noActive = validSwitches.slice(1);
+			// 	randomNum = noActive[Math.floor(Math.random() * noActive.length)];
+			// }
+
+
+			this.send('/choose move ' + randomNum + '|' + this.request.rqid);
 		},
 		request: null,
 		receiveRequest: function (request, choiceText) {

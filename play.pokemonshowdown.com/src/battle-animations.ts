@@ -40,6 +40,62 @@ This license DOES NOT extend to any other files in this repository.
 
 */
 
+let count1 = 0;
+let count2 = 0;
+let count3 = 0;
+let count4 = 0;
+let count5 = 0;
+let count6 = 0;
+
+document.addEventListener('mouseover', e => {
+	const teamIcons = e.target.closest('span.picon.has-tooltip[data-tooltip^="pokemon|0|0"]');
+	if (!teamIcons) return;
+	const from = e.relatedTarget;
+	if (from instanceof Element && from.closest('span.picon.has-tooltip[data-tooltip^="pokemon|0|0"]')) return;
+	count1 += 1;
+	console.log(`player1 pokemon1 hovered ${count1} times`);
+}, true);
+document.addEventListener('mouseover', e => {
+	const teamIcons = e.target.closest('span.picon.has-tooltip[data-tooltip^="pokemon|0|1"]');
+	if (!teamIcons) return;
+	const from = e.relatedTarget;
+	if (from instanceof Element && from.closest('span.picon.has-tooltip[data-tooltip^="pokemon|0|1"]')) return;
+	count2 += 1;
+	console.log(`player1 pokemon2 hovered ${count2} times`);
+}, true);
+document.addEventListener('mouseover', e => {
+	const teamIcons = e.target.closest('span.picon.has-tooltip[data-tooltip^="pokemon|0|2"]');
+	if (!teamIcons) return;
+	const from = e.relatedTarget;
+	if (from instanceof Element && from.closest('span.picon.has-tooltip[data-tooltip^="pokemon|0|2"]')) return;
+	count3 += 1;
+	console.log(`player1 pokemon3 hovered ${count3} times`);
+}, true);
+document.addEventListener('mouseover', e => {
+	const teamIcons = e.target.closest('span.picon.has-tooltip[data-tooltip^="pokemon|1|0"]');
+	if (!teamIcons) return;
+	const from = e.relatedTarget;
+	if (from instanceof Element && from.closest('span.picon.has-tooltip[data-tooltip^="pokemon|1|0"]')) return;
+	count4 += 1;
+	console.log(`player2 pokemon1 hovered ${count4} times`);
+}, true);
+document.addEventListener('mouseover', e => {
+	const teamIcons = e.target.closest('span.picon.has-tooltip[data-tooltip^="pokemon|1|1"]');
+	if (!teamIcons) return;
+	const from = e.relatedTarget;
+	if (from instanceof Element && from.closest('span.picon.has-tooltip[data-tooltip^="pokemon|1|1"]')) return;
+	count5 += 1;
+	console.log(`player2 pokemon2 hovered ${count5} times`);
+}, true);
+document.addEventListener('mouseover', e => {
+	const teamIcons = e.target.closest('span.picon.has-tooltip[data-tooltip^="pokemon|1|2"]');
+	if (!teamIcons) return;
+	const from = e.relatedTarget;
+	if (from instanceof Element && from.closest('span.picon.has-tooltip[data-tooltip^="pokemon|1|2"]')) return;
+	count6 += 1;
+	console.log(`player2 pokemon3 hovered ${count6} times`);
+}, true);
+
 export class BattleScene implements BattleSceneStub {
 	battle: Battle;
 	animating = true;
@@ -696,6 +752,15 @@ export class BattleScene implements BattleSceneStub {
 			if (i % 3 === 2) pokemonhtml += `</div><div class="teamicons">`;
 		}
 		pokemonhtml = '<div class="teamicons">' + pokemonhtml + '</div>';
+		// let count = 0;
+		// document.addEventListener('mouseover', e => {
+  		// 	const teamIcons = e.target.closest('.teamicons');
+  		// 	if (!teamIcons) return;
+		// 	const from = e.relatedTarget;
+		// 	if (from instanceof Element && from.closest('.teamicons')) return;
+  		// 	count += 1;
+  		// 	console.log(`teamicons hovered ${count} times`);
+		// }, true);
 		const ratinghtml = side.rating ? ` title="Rating: ${BattleLog.escapeHTML(side.rating)}"` : ``;
 		const faded = side.name ? `` : ` style="opacity: 0.4"`;
 		let badgehtml = '';

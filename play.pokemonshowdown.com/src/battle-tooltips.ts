@@ -627,8 +627,10 @@ export class BattleTooltips {
 
 		text += `<h2>${move.name}<br />`;
 
-		text += Dex.getTypeIcon(moveType);
-		text += ` ${Dex.getCategoryIcon(category)}</h2>`;
+		// text += Dex.getTypeIcon(moveType);
+		// text += ` ${Dex.getCategoryIcon(category)}</h2>`;
+
+		text += ` ${Dex.getTypeIcon(moveType)}</h2>`;
 
 		// Check if there are more than one active Pokémon to check for multiple possible BPs.
 		let showingMultipleBasePowers = false;
@@ -734,9 +736,9 @@ export class BattleTooltips {
 			if (move.flags.defrost) {
 				text += `<p class="movetag">The user thaws out if it is frozen.</p>`;
 			}
-			if (!move.flags.protect && !['self', 'allySide'].includes(move.target)) {
-				text += `<p class="movetag">Not blocked by Protect <small>(and Detect, King's Shield, Spiky Shield)</small></p>`;
-			}
+			// if (!move.flags.protect && !['self', 'allySide'].includes(move.target)) {
+			// 	text += `<p class="movetag">Not blocked by Protect <small>(and Detect, King's Shield, Spiky Shield)</small></p>`;
+			// }
 			if (move.flags.bypasssub) {
 				text += `<p class="movetag">Bypasses Substitute <small>(but does not break it)</small></p>`;
 			}
@@ -832,7 +834,7 @@ export class BattleTooltips {
 			if (pokemon.terastallized) {
 				text += `&nbsp; &nbsp; <small>(base: <span class="textaligned-typeicons">${this.getPokemonTypes(pokemon, true).map(type => Dex.getTypeIcon(type)).join(' ')}</span>)</small>`;
 			} else if (knownPokemon.teraType && !this.battle.rules['Terastal Clause']) {
-				text += `&nbsp; &nbsp; <small>(Tera Type: <span class="textaligned-typeicons">${Dex.getTypeIcon(knownPokemon.teraType)}</span>)</small>`;
+				// text += `&nbsp; &nbsp; <small>(Tera Type: <span class="textaligned-typeicons">${Dex.getTypeIcon(knownPokemon.teraType)}</span>)</small>`;
 			}
 			text += `</h2>`;
 		}
@@ -878,11 +880,11 @@ export class BattleTooltips {
 		const supportsAbilities = this.battle.gen > 2 && !this.battle.tier.includes("Let's Go");
 
 		let abilityText = '';
-		if (supportsAbilities) {
-			abilityText = this.getPokemonAbilityText(
-				clientPokemon, serverPokemon, isActive, !!illusionIndex && illusionIndex > 1
-			);
-		}
+		// if (supportsAbilities) {
+		// 	abilityText = this.getPokemonAbilityText(
+		// 		clientPokemon, serverPokemon, isActive, !!illusionIndex && illusionIndex > 1
+		// 	);
+		// }
 
 		let itemText = '';
 		if (serverPokemon) {
@@ -921,7 +923,7 @@ export class BattleTooltips {
 			text += '</p>';
 		}
 
-		text += this.renderStats(clientPokemon, serverPokemon, !isActive);
+		// text += this.renderStats(clientPokemon, serverPokemon, !isActive);
 
 		if (serverPokemon && !isActive) {
 			// move list

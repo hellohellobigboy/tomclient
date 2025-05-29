@@ -556,6 +556,7 @@ class BattlePanel extends PSRoomPanel<BattleRoom> {
 		return buf;
 	}
 	renderPlayerControls(request: BattleRequest) {
+		
 		const room = this.props.room;
 		let choices = room.choices;
 		if (!choices) return 'Error: Missing BattleChoiceBuilder';
@@ -579,6 +580,8 @@ class BattlePanel extends PSRoomPanel<BattleRoom> {
 		if (request.side) room.battle.myPokemon = request.side.pokemon;
 		switch (request.requestType) {
 		case 'move': {
+			const logEl = document.querySelector('.battle-log .inner')!;
+			logEl.replaceChildren();
 			const index = choices.index();
 			const pokemon = request.side.pokemon[index];
 			const moveRequest = choices.currentMoveRequest()!;
@@ -619,7 +622,7 @@ class BattlePanel extends PSRoomPanel<BattleRoom> {
 					<h3 class="moveselect">Attack</h3>
 					<div class="movemenu">
 						{this.renderMoveControls(request, choices)}
-						<div class="megaevo-box">
+						{/* <div class="megaevo-box">
 							{canDynamax && <label class={`megaevo${choices.current.max ? ' cur' : ''}`}>
 								<input type="checkbox" name="max" checked={choices.current.max} onChange={this.toggleBoostedMove} /> {}
 								{moveRequest.canGigantamax ? 'Gigantamax' : 'Dynamax'}
@@ -648,7 +651,7 @@ class BattlePanel extends PSRoomPanel<BattleRoom> {
 								<input type="checkbox" name="tera" checked={choices.current.tera} onChange={this.toggleBoostedMove} /> {}
 								Terastallize<br /><span dangerouslySetInnerHTML={{ __html: Dex.getTypeIcon(canTerastallize) }} />
 							</label>}
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div class="switchcontrols">

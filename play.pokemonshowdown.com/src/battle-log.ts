@@ -353,9 +353,28 @@ export class BattleLog {
 			break;
 
 		case 'turn':
+			// const logEl = document.querySelector('.battle-log .inner')!;
+			// if (logEl.querySelector('div.battle-history')) {
+			// 	logEl.replaceChildren();
+			// }
+
+			// const logs = Array.from(logEl?.children);
+			// const targets = logs.map(el => el.tagName === 'H2' && el.classList.contains('battle-history'))
+			// const lastindex = targets.lastIndexOf(true);
+			// const target = targets.slice(0, lastindex).lastIndexOf(true);
+			// console.log(logs);
+			// console.log(lastindex);
+			// if (target !== -1) {
+			// 	const toKeep = logs.slice(0, target + 1);
+			// 	logEl.replaceChildren(...toKeep);
+			//   }
+
+			let turnMessage;
+			// console.log('turn fired, logEl is:', logEl);
+			// console.log('children before clear:', logEl?.children.length);
+
 			const h2elem = document.createElement('h2');
 			h2elem.className = 'battle-history';
-			let turnMessage;
 			if (this.battleParser) {
 				turnMessage = this.battleParser.parseArgs(args, {}).trim();
 				if (!turnMessage.startsWith('==') || !turnMessage.endsWith('==')) {
@@ -365,8 +384,10 @@ export class BattleLog {
 				this.battleParser.curLineSection = 'break';
 			} else {
 				turnMessage = `Turn ${args[1]}`;
-			}
+			}	
+
 			h2elem.innerHTML = BattleLog.escapeHTML(turnMessage);
+
 			this.addSpacer();
 			this.addNode(h2elem);
 			break;

@@ -14,7 +14,7 @@ if (!fs.existsSync('caches')) {
 }
 
 if (!fs.existsSync('caches/tomserver')) {
-	child_process.execSync('git clone https://github.com/hellohellobigboy/tomserver.git', {
+	child_process.execSync('git clone git@github.com:hellohellobigboy/tomserver.git', {
 		cwd: 'caches',
 		stdio: 'inherit',
 		env: process.env

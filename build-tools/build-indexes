@@ -11,12 +11,13 @@ process.chdir(rootDir);
 if (!fs.existsSync('caches/pokemon-showdown')) {
 	child_process.execSync('git clone https://github.com/hellohellobigboy/tomserver.git', {
 		cwd: 'caches',
+		shell: true
 	});
 }
 
 process.stdout.write("Syncing data from Git repository... ");
-child_process.execSync('git pull', { cwd: 'caches/pokemon-showdown' });
-child_process.execSync('npm run build', { cwd: 'caches/pokemon-showdown' });
+child_process.execSync('git pull', { cwd: 'caches/pokemon-showdown', shell: true });
+child_process.execSync('npm run build', { cwd: 'caches/pokemon-showdown', shell: true });
 console.log("DONE");
 
 const Dex = require('../caches/pokemon-showdown/dist/sim/dex').Dex;

@@ -8,7 +8,7 @@ You need to run both the server and this client in order to have everything rend
 
 Local URL: `http://localhost:8080/testclient.html?~~localhost:8000`
 
-Server URL: WIP
+Server URL: `http://34.169.171.13:8080/testclient.html?~~34.169.171.13:8000`
 
 -----------------------------------------------------
 

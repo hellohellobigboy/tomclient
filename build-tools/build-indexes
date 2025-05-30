@@ -3,21 +3,46 @@
 
 const fs = require("fs");
 const path = require('path');
-const child_process = require("child_process");
+// const child_process = require("child_process");
+const { spawnSync } = require('child_process');
 
 const rootDir = path.resolve(__dirname, '..');
 process.chdir(rootDir);
 
 if (!fs.existsSync('caches/pokemon-showdown')) {
-	child_process.execSync('git clone https://github.com/hellohellobigboy/tomserver.git', {
-		cwd: 'caches',
-		shell: true
-	});
+	// child_process.execSync('git clone https://github.com/hellohellobigboy/tomserver.git', {
+	// 	cwd: 'caches',
+	// 	shell: true
+	// });
+	const res = spawnSync('git', [
+		'clone',
+		'https://github.com/smogon/pokemon-showdown.git',
+		], {
+			cwd: 'caches',
+			stdio: 'inherit',
+		});
+		if (res.error) throw res.error;
+		if (res.status !== 0) throw new Error(`git clone failed with exit code ${res.status}`);
 }
 
 process.stdout.write("Syncing data from Git repository... ");
-child_process.execSync('git pull', { cwd: 'caches/pokemon-showdown', shell: true });
-child_process.execSync('npm run build', { cwd: 'caches/pokemon-showdown', shell: true });
+// child_process.execSync('git pull', { cwd: 'caches/pokemon-showdown', shell: true });
+// child_process.execSync('npm run build', { cwd: 'caches/pokemon-showdown', shell: true });
+let res;
+
+res = spawnSync('git', ['pull'], {
+  cwd: 'caches/pokemon-showdown',
+  stdio: 'inherit',
+});
+if (res.error) throw res.error;
+if (res.status !== 0) throw new Error(`git pull failed with exit code ${res.status}`);
+
+res = spawnSync('npm', ['run', 'build'], {
+  cwd: 'caches/pokemon-showdown',
+  stdio: 'inherit',
+});
+if (res.error) throw res.error;
+if (res.status !== 0) throw new Error(`npm run build failed with exit code ${res.status}`);
 console.log("DONE");
 
 const Dex = require('../caches/pokemon-showdown/dist/sim/dex').Dex;

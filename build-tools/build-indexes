@@ -12,13 +12,13 @@ process.chdir(rootDir);
 if (!fs.existsSync('caches/tomserver')) {
 	child_process.execSync('git clone https://github.com/hellohellobigboy/tomserver.git', {
 		cwd: 'caches',
-		shell: true
+		shell: '/bin/bash'
 	});
 }
 
 process.stdout.write("Syncing data from Git repository... ");
-child_process.execSync('git pull', { cwd: 'caches/tomserver', shell: true });
-child_process.execSync('npm run build', { cwd: 'caches/tomserver', shell: true });
+child_process.execSync('git pull', { cwd: 'caches/tomserver', shell: '/bin/bash' });
+child_process.execSync('npm run build', { cwd: 'caches/tomserver', shell: '/bin/bash' });
 console.log("DONE");
 
 const Dex = require('../caches/tomserver/dist/sim/dex').Dex;

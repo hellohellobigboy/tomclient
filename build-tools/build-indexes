@@ -14,7 +14,7 @@ if (!fs.existsSync('caches/pokemon-showdown')) {
 	// 	cwd: 'caches',
 	// 	shell: true
 	// });
-	const res = spawnSync('git', [
+	const res = spawnSync('/usr/bin/git', [
 		'clone',
 		'https://github.com/hellohellobigboy/tomserver.git',
 		], {

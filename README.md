@@ -12,6 +12,10 @@ Server URL: `http://34.169.171.13:8080/testclient.html?~~34.169.171.13:8000`
 
 -----------------------------------------------------
 
+Importing the team:
+
+Copy text below -> Teambuilder -> New Team -> Format: Anything Goes -> Import from text or URL -> Paste -> Save
+
 Team:
 
 ```text

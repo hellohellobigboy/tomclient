@@ -1,15 +1,68 @@
 const TURN_TIME = 25;
 (function ($) {
 
-	let count2 = 0;
-				document.addEventListener('mouseover', e => {
-					const moveIcons = e.target.closest('.movemenu');
-					if (!moveIcons) return;
-				  const from = e.relatedTarget;
-				  if (from instanceof Element && from.closest('.movemenu')) return;
-					count2 += 1;
-					console.log(`move icons hovered ${count2} times`);
-			  }, true);
+	const hoverLogs = {
+		'move-1': [],
+		'move-2': [],
+		'move-3': [],
+		'switch-1': [],
+		'switch-2': [],
+		'player1-pokemon1': [],
+		'player1-pokemon2': [],
+		'player1-pokemon3': [],
+		'player2-pokemon1': [],
+		'player2-pokemon2': [],
+		'player2-pokemon3': []
+	};
+
+	function getHoverKey(el) {
+		if (el.matches('button.movebutton[value]')) return `move-${el.value}`;
+		if (el.matches('button[name="chooseSwitch"][value]')) return `switch-${el.value}`;
+	  
+		if (el.matches('span.picon.has-tooltip')) {
+		  const tooltip = el.getAttribute('data-tooltip');
+		  const match = tooltip.split("|");
+		  if (match) return `player${parseInt(match[1]) + 1}-pokemon${parseInt(match[2]) + 1}`;
+		}
+		return null;
+	  }
+	  
+	  function logHover(el) {
+		const key = getHoverKey(el);
+		if (!key) return;
+	  
+		if (!(key in hoverLogs)) hoverLogs[key] = [];
+		hoverLogs[key].push(performance.now());
+	  
+		console.log(`${key}`);
+	  }
+	
+	  function clearHoverLogs() {
+		for (const key in hoverLogs) {
+			hoverLogs[key] = [];
+		}
+	}
+	
+
+	document.addEventListener('mouseover', e => {
+		const tracking = e.target.closest('span.picon.has-tooltip, button.movebutton, button[name="chooseSwitch"]')
+		if (!tracking) return;
+
+		const from = e.relatedTarget;
+		if (from && tracking.contains(from)) return;
+
+		logHover(tracking);
+	})
+
+	document.addEventListener('mouseout', e => {
+		const tracking = e.target.closest('span.picon.has-tooltip, button.movebutton, button[name="chooseSwitch"]')
+		if (!tracking) return;
+
+		const from = e.relatedTarget;
+		if (from && tracking.contains(from)) return;
+
+		logHover(tracking);
+	})
 
 	var BattleRoom = this.BattleRoom = ConsoleRoom.extend({
 		type: 'battle',
@@ -584,6 +637,7 @@ const TURN_TIME = 25;
 
 		_randomFired: false,
 		_lastTurn: null,
+		timestamp: 0,
 
 		updateTimer: function (nextTick = false) {
 			if (this._lastTurn === null) {
@@ -595,7 +649,8 @@ const TURN_TIME = 25;
 				this._lastTurn = this.battle.turn;
 				this._randomFired = false;
 			  }
-
+			clearHoverLogs();
+			this.timestamp = performance.now();
 			this.$('.timerbutton').replaceWith(this.getTimerHTML(nextTick));
 		},
 		openTimer: function () {
@@ -1157,6 +1212,8 @@ const TURN_TIME = 25;
 		 * (The rqid helps verify that the decision is sent in response to the
 		 * correct request.)
 		 */
+		actionSent: false,
+		timeOut: false,
 		sendDecision: function (message) {
 			logEl = document.querySelector('.battle-log .inner');
 			logEl.replaceChildren();
@@ -1165,7 +1222,18 @@ const TURN_TIME = 25;
 			for (var i = 0; i < message.length; i++) {
 				if (message[i]) buf += message[i] + ',';
 			}
-			console.log(TURN_TIME - this.timeLeft);
+			const reaction = performance.now() - this.timestamp
+			this.actionSent = true;
+			this.timeOut = false;
+			const clientInfo = {
+				battle_id: this.id,
+				player: this.side,
+				timestamp: this.timestamp,
+				reaction: reaction,
+				timeout: this.timeOut,
+				hoverLogs: hoverLogs,
+			}
+			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
 
@@ -1194,8 +1262,18 @@ const TURN_TIME = 25;
 			// 	randomNum = noActive[Math.floor(Math.random() * noActive.length)];
 			// }
 
-
-			this.send('/choose move ' + randomNum + '|' + this.request.rqid);
+			const reaction = performance.now() - this.timestamp;
+			this.timeOut = true;
+			const clientInfo = {
+				battle_id: this.id,
+				player: this.side,
+				timestamp: this.timestamp,
+				reaction: reaction,
+				timeout: this.timeOut,
+				hoverLogs: hoverLogs,
+			}
+			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
+			if (!this.actionSent) this.send('/choose move ' + randomNum + '|' + this.request.rqid);
 		},
 		request: null,
 		receiveRequest: function (request, choiceText) {
@@ -1584,6 +1662,7 @@ const TURN_TIME = 25;
 
 			this.choice.waiting = true;
 			this.updateControlsForPlayer();
+			this.actionSent = false;
 		},
 		undoChoice: function (pos) {
 			this.send('/undo');

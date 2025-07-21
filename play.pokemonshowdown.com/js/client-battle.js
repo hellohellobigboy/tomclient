@@ -1,3 +1,4 @@
+import './firebase-init.js';
 const TURN_TIME = 25;
 (function ($) {
 
@@ -1214,7 +1215,7 @@ const TURN_TIME = 25;
 		 */
 		actionSent: false,
 		timeOut: false,
-		sendDecision: function (message) {
+		sendDecision: async function (message) {
 			logEl = document.querySelector('.battle-log .inner');
 			logEl.replaceChildren();
 			if (!$.isArray(message)) return this.send('/' + message + '|' + this.request.rqid);
@@ -1235,11 +1236,22 @@ const TURN_TIME = 25;
 			}
 			console.log(clientInfo)
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
+			try {
+				const user = auth.currentUser;
+				if (!user) throw new Error("User not authenticated");
+			
+				await addDoc(collection(db, "turndata"), {
+					...clientInfo
+				});
+				console.log("Replay data saved");
+			  } catch (error) {
+				console.error("Failed to save replay:", error);
+			  }
 
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
 
-		sendRandom: function () {
+		sendRandom: async function () {
 			logEl = document.querySelector('.battle-log .inner');
 			logEl.replaceChildren();
 
@@ -1258,7 +1270,20 @@ const TURN_TIME = 25;
 			}
 			console.log(clientInfo)
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
+			try {
+				const user = auth.currentUser;
+				if (!user) throw new Error("User not authenticated");
+			
+				await addDoc(collection(db, "turndata"), {
+					...clientInfo
+				});
+				console.log("Replay data saved");
+			  } catch (error) {
+				console.error("Failed to save replay:", error);
+			  }
 
+			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
+		
 			if (!this.actionSent) this.send('/choose move ' + randomNum + '|' + this.request.rqid);
 		},
 		request: null,

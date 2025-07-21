@@ -1,25 +1,41 @@
 #!/usr/bin/env node
 'use strict';
+require('dotenv').config()
 
 const fs = require("fs");
 const path = require('path');
 const child_process = require("child_process");
 
-
 const rootDir = path.resolve(__dirname, '..');
 process.chdir(rootDir);
 
 if (!fs.existsSync('caches')) {
-    fs.mkdirSync('caches', { recursive: true });
+	fs.mkdirSync('caches', { recursive: true });
 }
 
 if (!fs.existsSync('caches/tomserver')) {
 	child_process.execSync('git clone https://github.com/hellohellobigboy/tomserver.git', {
 		cwd: 'caches',
 		stdio: 'inherit',
-		env: process.env
+		env: process.env,
 	});
 }
+
+const configFile = path.join(rootDir, 'play.pokemonshowdown.com/js', 'firebase-config.js');
+
+const configContent = `
+export const firebaseConfig = {
+  apiKey: "${process.env.FIREBASE_API_KEY}",
+  authDomain: "${process.env.FIREBASE_AUTH_DOMAIN}",
+  projectId: "${process.env.FIREBASE_PROJECT_ID}",
+  storageBucket: "${process.env.FIREBASE_STORAGE_BUCKET}",
+  messagingSenderId: "${process.env.FIREBASE_MESSAGING_SENDER_ID}",
+  appId: "${process.env.FIREBASE_APP_ID}",
+};
+`;
+
+fs.writeFileSync(configFile, configContent, 'utf8');
+console.log('Firebase config file generated.');
 
 process.stdout.write("Syncing data from Git repository... ");
 child_process.execSync('git pull', { cwd: 'caches/tomserver', stdio: 'inherit', env: process.env });

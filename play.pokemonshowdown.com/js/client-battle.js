@@ -1233,18 +1233,8 @@ const TURN_TIME = 25;
 				timeout: this.timeOut,
 				hoverLogs: hoverLogs,
 			}
-			// console.log(clientInfo)
-
-			// console.log('=== SENDING CLIENT INFO ===');
-    		// console.log('clientInfo:', clientInfo);
-    		// console.log('About to send:', `/choose fromclient ${JSON.stringify(clientInfo)}`);
-    		// console.log('===========================');
-
-			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
-
-			// console.log('=== SENDING MOVE ===');
-			// console.log('About to send move:', buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
-			// console.log('====================');
+			console.log(clientInfo)
+			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
@@ -1255,24 +1245,6 @@ const TURN_TIME = 25;
 
 			// const actions = ['move', 'switch'];
 			let randomNum = Math.floor(Math.random() * 3) + 1;
-			// let randomAction = actions[Math.floor(Math.random() * actions.length)];
-
-			// we are hoping the player will select their only possible move (switch)
-			// in the case of a faint instead of letting the timer go out
-
-			// const validSwitches = this.request.side.pokemon
-  			// 	.map((p, i) => ({ hp: p.hp, slot: i + 1 }))
-  			// 	.filter(x => x.hp > 0)
-  			// 	.map(x => x.slot);
-
-			// if (validSwitches.length == 1) {
-			// 	randomAction = 'move';
-			// }
-
-			// if (randomAction == 'switch') {
-			// 	const noActive = validSwitches.slice(1);
-			// 	randomNum = noActive[Math.floor(Math.random() * noActive.length)];
-			// }
 
 			const reaction = performance.now() - this.timestamp;
 			this.timeOut = true;
@@ -1284,16 +1256,8 @@ const TURN_TIME = 25;
 				timeout: this.timeOut,
 				hoverLogs: hoverLogs,
 			}
-			// console.log('=== SENDING CLIENT INFO ===');
-    		// console.log('clientInfo:', clientInfo);
-    		// console.log('About to send:', `/choose fromclient ${JSON.stringify(clientInfo)}`);
-    		// console.log('===========================');
-
-			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
-
-			// console.log('=== SENDING MOVE ===');
-			// console.log('About to send move:', '/choose move ' + randomNum + '|' + this.request.rqid);
-			// console.log('====================');
+			console.log(clientInfo)
+			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 
 			if (!this.actionSent) this.send('/choose move ' + randomNum + '|' + this.request.rqid);
 		},

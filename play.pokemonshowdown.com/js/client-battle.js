@@ -1233,7 +1233,15 @@ const TURN_TIME = 25;
 				timeout: this.timeOut,
 				hoverLogs: hoverLogs,
 			}
+			// console.log(clientInfo)
+			console.log('=== SENDING CLIENT INFO ===');
+    console.log('clientInfo:', clientInfo);
+    console.log('About to send:', `/choose fromclient ${JSON.stringify(clientInfo)}`);
+    console.log('===========================');
 			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
+			console.log('=== SENDING MOVE ===');
+			console.log('About to send move:', buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
+			console.log('====================');
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
 
@@ -1272,7 +1280,14 @@ const TURN_TIME = 25;
 				timeout: this.timeOut,
 				hoverLogs: hoverLogs,
 			}
+			console.log('=== SENDING CLIENT INFO ===');
+    console.log('clientInfo:', clientInfo);
+    console.log('About to send:', `/choose fromclient ${JSON.stringify(clientInfo)}`);
+    console.log('===========================');
 			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
+			console.log('=== SENDING MOVE ===');
+			console.log('About to send move:', buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
+			console.log('====================');
 			if (!this.actionSent) this.send('/choose move ' + randomNum + '|' + this.request.rqid);
 		},
 		request: null,

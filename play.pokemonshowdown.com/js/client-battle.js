@@ -1235,7 +1235,7 @@ const clientInfoLog = [];
 				hoverLogs: hoverLogs,
 			}
 			console.log(clientInfo)
-			clientInfoLog.push(clientInfo);
+			clientInfoLog.push(`${JSON.stringify(clientInfo)}`);
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
@@ -1258,7 +1258,7 @@ const clientInfoLog = [];
 				hoverLogs: hoverLogs,
 			}
 			console.log(clientInfo)
-			clientInfoLog.push(clientInfo);
+			clientInfoLog.push(`${JSON.stringify(clientInfo)}`);
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			if (!this.actionSent) this.send('/choose move ' + randomNum + '|'+ this.request.rqid);
 		},

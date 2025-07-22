@@ -1,4 +1,6 @@
-import './firebase-init.js';
+import { collection, addDoc } from "firebase/firestore";
+import { db } from './firebase-init.js'; 
+
 const TURN_TIME = 25;
 (function ($) {
 
@@ -1237,16 +1239,12 @@ const TURN_TIME = 25;
 			console.log(clientInfo)
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			try {
-				const user = auth.currentUser;
-				if (!user) throw new Error("User not authenticated");
-			
-				await addDoc(collection(db, "turndata"), {
-					...clientInfo
-				});
-				console.log("Replay data saved");
-			  } catch (error) {
-				console.error("Failed to save replay:", error);
-			  }
+				// Upload clientInfo to Firestore
+				await addDoc(collection(db, "turndata"), clientInfo);
+				console.log("clientInfo uploaded to Firestore");
+			} catch (error) {
+				console.error("Error uploading clientInfo:", error);
+			}
 
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
@@ -1271,16 +1269,12 @@ const TURN_TIME = 25;
 			console.log(clientInfo)
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			try {
-				const user = auth.currentUser;
-				if (!user) throw new Error("User not authenticated");
-			
-				await addDoc(collection(db, "turndata"), {
-					...clientInfo
-				});
-				console.log("Replay data saved");
-			  } catch (error) {
-				console.error("Failed to save replay:", error);
-			  }
+				// Upload clientInfo to Firestore
+				await addDoc(collection(db, "turndata"), clientInfo);
+				console.log("clientInfo uploaded to Firestore");
+			} catch (error) {
+				console.error("Error uploading clientInfo:", error);
+			}
 
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		

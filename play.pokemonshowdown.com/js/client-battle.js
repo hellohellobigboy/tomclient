@@ -1232,10 +1232,10 @@ const clientInfoLog = [];
 				timestamp: this.timestamp,
 				reaction: reaction,
 				timeout: this.timeOut,
-				hoverLogs: hoverLogs,
+				hoverLogs: JSON.parse(JSON.stringify(hoverLogs)),
 			}
 			console.log(clientInfo)
-			clientInfoLog.push(`${JSON.stringify(clientInfo)}`);
+			clientInfoLog.push(clientInfo);
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
@@ -1255,10 +1255,10 @@ const clientInfoLog = [];
 				timestamp: this.timestamp,
 				reaction: reaction,
 				timeout: this.timeOut,
-				hoverLogs: hoverLogs,
+				hoverLogs: JSON.parse(JSON.stringify(hoverLogs)),
 			}
 			console.log(clientInfo)
-			clientInfoLog.push(`${JSON.stringify(clientInfo)}`);
+			clientInfoLog.push(clientInfo);
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			if (!this.actionSent) this.send('/choose move ' + randomNum + '|'+ this.request.rqid);
 		},

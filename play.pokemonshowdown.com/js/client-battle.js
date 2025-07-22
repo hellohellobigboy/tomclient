@@ -1234,8 +1234,8 @@ const TURN_TIME = 25;
 				hoverLogs: hoverLogs,
 			}
 			console.log(clientInfo)
-			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
-			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
+			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
+			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid + ',' + `${JSON.stringify(clientInfo)}`);
 		},
 
 		sendRandom: async function () {
@@ -1256,8 +1256,8 @@ const TURN_TIME = 25;
 				hoverLogs: hoverLogs,
 			}
 			console.log(clientInfo)
-			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
-			if (!this.actionSent) this.send('/choose move ' + randomNum + '|' + this.request.rqid);
+			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
+			if (!this.actionSent) this.send('/choose move ' + randomNum + '|' + this.request.rqid + ',') + `${JSON.stringify(clientInfo)}`;
 		},
 		request: null,
 		receiveRequest: function (request, choiceText) {

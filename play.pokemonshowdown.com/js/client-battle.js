@@ -1258,7 +1258,7 @@ const clientInfoLog = [];
 				hoverLogs: hoverLogs,
 			}
 			console.log(clientInfo)
-			clientInfoLog.push(cliengInfo);
+			clientInfoLog.push(clientInfo);
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			if (!this.actionSent) this.send('/choose move ' + randomNum + '|'+ this.request.rqid);
 		},

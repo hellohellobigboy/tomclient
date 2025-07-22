@@ -1215,7 +1215,7 @@ const clientInfoLog = [];
 		 */
 		actionSent: false,
 		timeOut: false,
-		sendDecision: async function (message) {
+		sendDecision: function (message) {
 			logEl = document.querySelector('.battle-log .inner');
 			logEl.replaceChildren();
 			if (!$.isArray(message)) return this.send('/' + message + '|' + this.request.rqid);
@@ -1240,7 +1240,7 @@ const clientInfoLog = [];
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
 
-		sendRandom: async function () {
+		sendRandom: function () {
 			logEl = document.querySelector('.battle-log .inner');
 			logEl.replaceChildren();
 

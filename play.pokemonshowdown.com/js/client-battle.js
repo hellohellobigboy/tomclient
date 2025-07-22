@@ -1234,14 +1234,7 @@ const TURN_TIME = 25;
 				hoverLogs: hoverLogs,
 			}
 			console.log(clientInfo)
-			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
-			try {
-				await window.db.collection("turndata").add(clientInfo);
-				console.log("clientInfo uploaded to Firestore");
-			  } catch (error) {
-				console.error("Error uploading clientInfo:", error);
-			  }
-
+			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
 
@@ -1263,15 +1256,7 @@ const TURN_TIME = 25;
 				hoverLogs: hoverLogs,
 			}
 			console.log(clientInfo)
-			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
-			try {
-				await window.db.collection("turndata").add(clientInfo);
-				console.log("clientInfo uploaded to Firestore");
-			  } catch (error) {
-				console.error("Error uploading clientInfo:", error);
-			  }
-
-		
+			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			if (!this.actionSent) this.send('/choose move ' + randomNum + '|' + this.request.rqid);
 		},
 		request: null,

@@ -1271,7 +1271,6 @@ const TURN_TIME = 25;
 				console.error("Error uploading clientInfo:", error);
 			  }
 
-			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		
 			if (!this.actionSent) this.send('/choose move ' + randomNum + '|' + this.request.rqid);
 		},

@@ -698,12 +698,12 @@ export class BattleScene implements BattleSceneStub {
 		pokemonhtml = '<div class="teamicons">' + pokemonhtml + '</div>';
 		// let count = 0;
 		// document.addEventListener('mouseover', e => {
-  		// 	const teamIcons = e.target.closest('.teamicons');
-  		// 	if (!teamIcons) return;
+		// 	const teamIcons = e.target.closest('.teamicons');
+		// 	if (!teamIcons) return;
 		// 	const from = e.relatedTarget;
 		// 	if (from instanceof Element && from.closest('.teamicons')) return;
-  		// 	count += 1;
-  		// 	console.log(`teamicons hovered ${count} times`);
+		// 	count += 1;
+		// 	console.log(`teamicons hovered ${count} times`);
 		// }, true);
 		const ratinghtml = side.rating ? ` title="Rating: ${BattleLog.escapeHTML(side.rating)}"` : ``;
 		const faded = side.name ? `` : ` style="opacity: 0.4"`;

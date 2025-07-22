@@ -384,7 +384,7 @@ export class BattleLog {
 				this.battleParser.curLineSection = 'break';
 			} else {
 				turnMessage = `Turn ${args[1]}`;
-			}	
+			}
 
 			h2elem.innerHTML = BattleLog.escapeHTML(turnMessage);
 

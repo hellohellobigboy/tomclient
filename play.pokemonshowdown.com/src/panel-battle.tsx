@@ -556,7 +556,7 @@ class BattlePanel extends PSRoomPanel<BattleRoom> {
 		return buf;
 	}
 	renderPlayerControls(request: BattleRequest) {
-		
+
 		const room = this.props.room;
 		let choices = room.choices;
 		if (!choices) return 'Error: Missing BattleChoiceBuilder';

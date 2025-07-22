@@ -37104,4 +37104,3 @@ BattleMoveAnims['grassattack'] = { anim: BattleMoveAnims['leafstorm'].anim };
 BattleMoveAnims['fireattack'] = { anim: BattleMoveAnims['fireblast'].anim };
 BattleMoveAnims['waterattack'] = { anim: BattleMoveAnims['hydropump'].anim };
 BattleMoveAnims['normalattack'] = { anim: BattleMoveAnims['hyperbeam'].anim };
-

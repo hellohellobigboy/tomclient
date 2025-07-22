@@ -96,6 +96,37 @@ https://psim.us/dev
 	LM.innerHTML += ' DONE<br />Loading client...';
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script>
+	// Your Firebase config object (replace with your actual keys)
+	const firebaseConfig = {
+	  apiKey: "AIzaSyD2pgF2HdV3BnsgoUZOHvWDJJ4PkFDtJq8",
+	  authDomain: "showdown-faf59.firebaseapp.com",
+	  projectId: "showdown-faf59",
+	  storageBucket: "showdown-faf59.firebasestorage.app",
+	  messagingSenderId: "292815773301",
+	  appId: "1:292815773301:web:c0d490ca842a66fc6ae23c"
+	};
+  
+	// Initialize Firebase app
+	firebase.initializeApp(firebaseConfig);
+  
+	// Initialize Firestore and Auth and attach to window for global access
+	window.db = firebase.firestore();
+	window.auth = firebase.auth();
+  
+	// Sign in anonymously
+	auth.signInAnonymously()
+	  .then(() => {
+		console.log("Signed in anonymously to Firebase");
+	  })
+	  .catch((error) => {
+		console.error("Firebase auth error:", error);
+	  });
+  </script>
+
 <script src="//play.pokemonshowdown.com/js/client.js?"></script>
 <script src="//play.pokemonshowdown.com/js/client-topbar.js?"></script>
 <script src="//play.pokemonshowdown.com/js/client-mainmenu.js?"></script>

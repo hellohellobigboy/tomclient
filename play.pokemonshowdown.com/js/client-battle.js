@@ -1,6 +1,3 @@
-import { collection, addDoc } from "firebase/firestore";
-import { db } from './firebase-init.js'; 
-
 const TURN_TIME = 25;
 (function ($) {
 
@@ -1239,12 +1236,11 @@ const TURN_TIME = 25;
 			console.log(clientInfo)
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			try {
-				// Upload clientInfo to Firestore
-				await addDoc(collection(db, "turndata"), clientInfo);
+				await window.db.collection("turndata").add(clientInfo);
 				console.log("clientInfo uploaded to Firestore");
-			} catch (error) {
+			  } catch (error) {
 				console.error("Error uploading clientInfo:", error);
-			}
+			  }
 
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
@@ -1269,12 +1265,11 @@ const TURN_TIME = 25;
 			console.log(clientInfo)
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			try {
-				// Upload clientInfo to Firestore
-				await addDoc(collection(db, "turndata"), clientInfo);
+				await window.db.collection("turndata").add(clientInfo);
 				console.log("clientInfo uploaded to Firestore");
-			} catch (error) {
+			  } catch (error) {
 				console.error("Error uploading clientInfo:", error);
-			}
+			  }
 
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		

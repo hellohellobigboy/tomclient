@@ -1257,7 +1257,7 @@ const TURN_TIME = 25;
 			}
 			console.log(clientInfo)
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
-			if (!this.actionSent) this.send('/choose move ' + randomNum + '+' + this.request.rqid + ',');
+			if (!this.actionSent) this.send('/choose move ' + randomNum + '|'+ this.request.rqid);
 		},
 		request: null,
 		receiveRequest: function (request, choiceText) {

@@ -532,83 +532,83 @@ const clientInfoLog = [];
 			}
 		},
 		timerInterval: 0,
-		timeLeft: TURN_TIME,
-		getTimerHTML: function (nextTick) {
-
-			// var time = 'Timer';
-			var timerTicking = (this.battle.kickingInactive && this.request && !this.request.wait && !(this.choice && this.choice.waiting)) ? ' timerbutton-on' : '';
-
-			if (!nextTick) {
-				clearInterval(this.timerInterval);
-				this.timerInterval = setInterval(() => {
-					const html = this.getTimerHTML(true);
-					this.$('.timerbutton').replaceWith(html);
-				}, 1000);
-			} else {
-				if (this.timeLeft > 0) {
-					this.timeLeft--;
-				} else if (!this._randomFired) {
-					this._randomFired = true;
-					clearInterval(this.timerInterval);
-      				this.timerInterval = 0;
-					this.sendRandom();
-      				console.log('hello');
-				}
-			}
-
-			const time = `${0}:${this.timeLeft < 10 ? '0' : ''}${this.timeLeft}`;
-			return '<button name="openTimer" class="button timerbutton' + timerTicking + '"><i class="fa fa-hourglass-start"></i> ' + time + '</button>';
-
-			
-		},
-	
+		// timeLeft: TURN_TIME,
 		// getTimerHTML: function (nextTick) {
-		// 	var time = 'Timer';
+
+		// 	// var time = 'Timer';
 		// 	var timerTicking = (this.battle.kickingInactive && this.request && !this.request.wait && !(this.choice && this.choice.waiting)) ? ' timerbutton-on' : '';
 
 		// 	if (!nextTick) {
-		// 		var self = this;
-		// 		if (this.timerInterval) {
-		// 			clearInterval(this.timerInterval);
-		// 			this.timerInterval = 0;
-		// 		}
-		// 		if (timerTicking) this.timerInterval = setInterval(function () {
-		// 			var $timerButton = self.$('.timerbutton');
-		// 			if ($timerButton.length) {
-		// 				$timerButton.replaceWith(self.getTimerHTML(true));
-		// 			} else {
-		// 				clearInterval(self.timerInterval);
-		// 				self.timerInterval = 0;
-		// 			}
+		// 		clearInterval(this.timerInterval);
+		// 		this.timerInterval = setInterval(() => {
+		// 			const html = this.getTimerHTML(true);
+		// 			this.$('.timerbutton').replaceWith(html);
 		// 		}, 1000);
-		// 	} else if (this.battle.kickingInactive > 1) {
-		// 		this.battle.kickingInactive--;
-		// 		if (this.battle.graceTimeLeft) this.battle.graceTimeLeft--;
-		// 		else if (this.battle.totalTimeLeft) this.battle.totalTimeLeft--;
-		// 	}
-
-		// 	if (this.battle.kickingInactive) {
-		// 		var secondsLeft = this.battle.kickingInactive;
-		// 		if (secondsLeft !== true) {
-		// 			if (secondsLeft <= 10 && timerTicking) {
-		// 				timerTicking = ' timerbutton-critical';
-		// 			}
-		// 			var minutesLeft = Math.floor(secondsLeft / 60);
-		// 			secondsLeft -= minutesLeft * 60;
-		// 			time = '' + minutesLeft + ':' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
-
-		// 			secondsLeft = this.battle.totalTimeLeft;
-		// 			if (secondsLeft) {
-		// 				minutesLeft = Math.floor(secondsLeft / 60);
-		// 				secondsLeft -= minutesLeft * 60;
-		// 				time += ' | ' + minutesLeft + ':' + (secondsLeft < 10 ? '0' : '') + secondsLeft + ' total';
-		// 			}
-		// 		} else {
-		// 			time = '-:--';
+		// 	} else {
+		// 		if (this.timeLeft > 0) {
+		// 			this.timeLeft--;
+		// 		} else if (!this._randomFired) {
+		// 			this._randomFired = true;
+		// 			clearInterval(this.timerInterval);
+      	// 			this.timerInterval = 0;
+		// 			this.sendRandom();
+      	// 			console.log('hello');
 		// 		}
 		// 	}
+
+		// 	const time = `${0}:${this.timeLeft < 10 ? '0' : ''}${this.timeLeft}`;
 		// 	return '<button name="openTimer" class="button timerbutton' + timerTicking + '"><i class="fa fa-hourglass-start"></i> ' + time + '</button>';
+
+			
 		// },
+	
+		getTimerHTML: function (nextTick) {
+			var time = 'Timer';
+			var timerTicking = (this.battle.kickingInactive && this.request && !this.request.wait && !(this.choice && this.choice.waiting)) ? ' timerbutton-on' : '';
+
+			if (!nextTick) {
+				var self = this;
+				if (this.timerInterval) {
+					clearInterval(this.timerInterval);
+					this.timerInterval = 0;
+				}
+				if (timerTicking) this.timerInterval = setInterval(function () {
+					var $timerButton = self.$('.timerbutton');
+					if ($timerButton.length) {
+						$timerButton.replaceWith(self.getTimerHTML(true));
+					} else {
+						clearInterval(self.timerInterval);
+						self.timerInterval = 0;
+					}
+				}, 1000);
+			} else if (this.battle.kickingInactive > 1) {
+				this.battle.kickingInactive--;
+				if (this.battle.graceTimeLeft) this.battle.graceTimeLeft--;
+				else if (this.battle.totalTimeLeft) this.battle.totalTimeLeft--;
+			}
+
+			if (this.battle.kickingInactive) {
+				var secondsLeft = this.battle.kickingInactive;
+				if (secondsLeft !== true) {
+					if (secondsLeft <= 10 && timerTicking) {
+						timerTicking = ' timerbutton-critical';
+					}
+					var minutesLeft = Math.floor(secondsLeft / 60);
+					secondsLeft -= minutesLeft * 60;
+					time = '' + minutesLeft + ':' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
+
+					secondsLeft = this.battle.totalTimeLeft;
+					if (secondsLeft) {
+						minutesLeft = Math.floor(secondsLeft / 60);
+						secondsLeft -= minutesLeft * 60;
+						time += ' | ' + minutesLeft + ':' + (secondsLeft < 10 ? '0' : '') + secondsLeft + ' total';
+					}
+				} else {
+					time = '-:--';
+				}
+			}
+			return '<button name="openTimer" class="button timerbutton' + timerTicking + '"><i class="fa fa-hourglass-start"></i> ' + time + '</button>';
+		},
 		uncheckMegaEvoX: function () {
 			this.$('input[name=megaevox]').prop('checked', false);
 		},
@@ -1240,28 +1240,28 @@ const clientInfoLog = [];
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
 
-		sendRandom: function () {
-			logEl = document.querySelector('.battle-log .inner');
-			logEl.replaceChildren();
+		// sendRandom: function () {
+		// 	logEl = document.querySelector('.battle-log .inner');
+		// 	logEl.replaceChildren();
 
-			// const actions = ['move', 'switch'];
-			let randomNum = Math.floor(Math.random() * 3) + 1;
+		// 	// const actions = ['move', 'switch'];
+		// 	let randomNum = Math.floor(Math.random() * 3) + 1;
 
-			const reaction = performance.now() - this.timestamp;
-			this.timeOut = true;
-			const clientInfo = {
-				battle_id: this.id,
-				player: this.side,
-				timestamp: this.timestamp,
-				reaction: reaction,
-				timeout: this.timeOut,
-				hoverLogs: JSON.parse(JSON.stringify(hoverLogs)),
-			}
-			console.log(clientInfo)
-			clientInfoLog.push(clientInfo);
-			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
-			if (!this.actionSent) this.send('/choose move ' + randomNum + '|'+ this.request.rqid);
-		},
+		// 	const reaction = performance.now() - this.timestamp;
+		// 	this.timeOut = true;
+		// 	const clientInfo = {
+		// 		battle_id: this.id,
+		// 		player: this.side,
+		// 		timestamp: this.timestamp,
+		// 		reaction: reaction,
+		// 		timeout: this.timeOut,
+		// 		hoverLogs: JSON.parse(JSON.stringify(hoverLogs)),
+		// 	}
+		// 	console.log(clientInfo)
+		// 	clientInfoLog.push(clientInfo);
+		// 	// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
+		// 	if (!this.actionSent) this.send('/choose move ' + randomNum + '|'+ this.request.rqid);
+		// },
 		request: null,
 		receiveRequest: function (request, choiceText) {
 			if (!request) {

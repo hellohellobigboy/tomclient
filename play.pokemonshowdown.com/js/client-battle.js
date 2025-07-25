@@ -641,15 +641,15 @@ const clientInfoLog = [];
 		timestamp: 0,
 
 		updateTimer: function (nextTick = false) {
-			if (this._lastTurn === null) {
-				this._lastTurn = this.battle.turn;
-				console.log(this.battle.turn);
-			}
-			if (!nextTick && this.battle.turn !== this._lastTurn) {
-				this.timeLeft = TURN_TIME;
-				this._lastTurn = this.battle.turn;
-				this._randomFired = false;
-			  }
+			// if (this._lastTurn === null) {
+			// 	this._lastTurn = this.battle.turn;
+			// 	console.log(this.battle.turn);
+			// }
+			// if (!nextTick && this.battle.turn !== this._lastTurn) {
+			// 	this.timeLeft = TURN_TIME;
+			// 	this._lastTurn = this.battle.turn;
+			// 	this._randomFired = false;
+			//   }
 			clearHoverLogs();
 			this.timestamp = performance.now();
 			this.$('.timerbutton').replaceWith(this.getTimerHTML(nextTick));

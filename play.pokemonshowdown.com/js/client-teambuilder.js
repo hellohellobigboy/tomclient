@@ -34,7 +34,11 @@ IVs: 0 Atk
 - Water Attack
 - Normal Attack
 - Fire Attack`
-			Storage.activeSetList = self.curSetList = Storage.importTeam(teamArray);
+			const parsed = Storage.importTeam(teamArray);
+			const packed = Storage.packTeam(parsed);
+			Storage.teams.push({name: "tom", folder: "", team: packed, format: "gen9anythinggoes" })
+			Storage.saveTeams();
+
 
 			// left menu
 			this.$el.addClass('ps-room-light').addClass('scrollable');

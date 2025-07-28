@@ -640,7 +640,7 @@ const clientInfoLog = [];
 		_lastTurn: null,
 		timestamp: 0,
 
-		updateTimer: function (nextTick = false) {
+		updateTimer: function () {
 			// if (this._lastTurn === null) {
 			// 	this._lastTurn = this.battle.turn;
 			// 	console.log(this.battle.turn);
@@ -652,7 +652,7 @@ const clientInfoLog = [];
 			//   }
 			clearHoverLogs();
 			this.timestamp = performance.now();
-			this.$('.timerbutton').replaceWith(this.getTimerHTML(nextTick));
+			this.$('.timerbutton').replaceWith(this.getTimerHTML());
 		},
 		openTimer: function () {
 			app.addPopup(TimerPopup, { room: this });

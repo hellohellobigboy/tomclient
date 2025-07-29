@@ -1236,8 +1236,8 @@ const clientInfoLog = [];
 			}
 			console.log(clientInfo)
 			clientInfoLog.push(clientInfo);
-			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
+			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 		},
 
 		// sendRandom: function () {

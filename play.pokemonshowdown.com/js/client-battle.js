@@ -1237,7 +1237,6 @@ const clientInfoLog = [];
 			console.log(clientInfo)
 			console.log(this)
 
-			this.send(`/choose fromclient ${JSON.stringify(clientInfo)}|${this.request.rqid}`);
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 		},
 

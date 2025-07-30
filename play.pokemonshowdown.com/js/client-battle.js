@@ -1235,7 +1235,7 @@ const clientInfoLog = [];
 				hoverLogs: JSON.parse(JSON.stringify(hoverLogs)),
 			}
 			console.log(clientInfo)
-			console.log(this.side)
+			console.log(this)
 			this.send(buf.substr(0, buf.length - 1) + '|' + this.request.rqid);
 			// this.send(`/choose fromclient ${JSON.stringify(clientInfo)}`);
 		},

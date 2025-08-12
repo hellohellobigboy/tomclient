@@ -89,7 +89,8 @@ const clientInfoLog = [];
 			this.$chatAdd = this.$el.find('.battle-log-add');
 			this.$foeHint = this.$el.find('.foehint');
 
-			BattleSound.setMute(Dex.prefs('mute'));
+			// BattleSound.setMute(Dex.prefs('mute'));
+			BattleSound.setMute(true);
 			this.battle = new Battle({
 				id: this.id,
 				$frame: this.$battle,

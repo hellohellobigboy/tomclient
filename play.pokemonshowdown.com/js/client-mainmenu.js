@@ -106,6 +106,38 @@
 				}
 				if (!hasUnread) self.minimizePM($news);
 			});
+			teams = Storage.teams;
+			const teamArray = `Charizard
+Ability: Ball Fetch
+Tera Type: Fire
+EVs: 252 Atk / 252 SpA / 4 Spe
+IVs: 0 Atk
+- Fire Attack
+- Normal Attack
+- Grass Attack
+
+Venusaur
+Ability: Ball Fetch
+Tera Type: Grass
+EVs: 252 Atk / 252 SpA / 4 Spe
+IVs: 0 Atk
+- Grass Attack
+- Normal Attack
+- Water Attack
+
+Blastoise
+Ability: Ball Fetch
+Tera Type: Water
+EVs: 252 Atk / 252 SpA / 4 Spe
+IVs: 0 Atk
+- Water Attack
+- Normal Attack
+- Fire Attack`
+			const parsed = Storage.importTeam(teamArray);
+			const packed = Storage.packTeam(parsed);
+			Storage.teams.push({name: "tom", folder: "", team: packed, format: "gen9anythinggoes" })
+			Storage.saveTeams();
+			Storage.loadTeams();
 
 			if (!app.roomsFirstOpen && window.location.host !== 'demo.psim.us' && window.innerWidth < 630) {
 				if (Config.roomsFirstOpenScript) {

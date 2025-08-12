@@ -38,6 +38,7 @@ IVs: 0 Atk
 			const packed = Storage.packTeam(parsed);
 			Storage.teams.push({name: "tom", folder: "", team: packed, format: "gen9anythinggoes" })
 			Storage.saveTeams();
+			Storage.loadTeams();
 
 
 			// left menu

@@ -786,6 +786,7 @@ const clientInfoLog = [];
 				var currentlyDynamaxed = (!canDynamax && maxMoves);
 				for (var i = 0; i < curActive.moves.length; i++) {
 					var moveData = curActive.moves[i];
+					console.log(moveData);
 					var move = this.battle.dex.moves.get(moveData.move);
 					var name = `${move.name} (16)`;
 					var pp = moveData.pp + '/' + moveData.maxpp;

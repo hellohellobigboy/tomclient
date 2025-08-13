@@ -8,31 +8,34 @@
 		title: 'Teambuilder',
 		initialize: function () {
 			teams = Storage.teams;
-			const teamArray = `Charizard
-Ability: Ball Fetch
-Tera Type: Fire
-EVs: 252 Atk / 252 SpA / 4 Spe
-IVs: 0 Atk
-- Fire Attack
-- Normal Attack
-- Grass Attack
+			const teamArray = `Charizard  
+Ability: Ball Fetch  
+Level: 50  
+Tera Type: Fire  
+EVs: 252 Atk / 156 SpA / 101 Spe  
+IVs: 0 HP  
+- Fire Attack  
+- Normal Attack  
+- Grass Attack  
 
-Venusaur
-Ability: Ball Fetch
-Tera Type: Grass
-EVs: 252 Atk / 252 SpA / 4 Spe
-IVs: 0 Atk
-- Grass Attack
-- Normal Attack
-- Water Attack
+Venusaur  
+Ability: Ball Fetch  
+Level: 50  
+Tera Type: Grass  
+EVs: 252 Atk / 156 SpA / 101 Spe  
+IVs: 0 HP  
+- Grass Attack  
+- Normal Attack  
+- Water Attack  
 
-Blastoise
-Ability: Ball Fetch
-Tera Type: Water
-EVs: 252 Atk / 252 SpA / 4 Spe
-IVs: 0 Atk
-- Water Attack
-- Normal Attack
+Blastoise  
+Ability: Ball Fetch  
+Level: 50  
+Tera Type: Water  
+EVs: 252 Atk / 156 SpA / 101 Spe  
+IVs: 0 HP  
+- Water Attack  
+- Normal Attack  
 - Fire Attack`
 			const parsed = Storage.importTeam(teamArray);
 			const packed = Storage.packTeam(parsed);

@@ -787,7 +787,7 @@ const clientInfoLog = [];
 				for (var i = 0; i < curActive.moves.length; i++) {
 					var moveData = curActive.moves[i];
 					var move = this.battle.dex.moves.get(moveData.move);
-					var name = move.name;
+					var name = `${move.name} (16)`;
 					var pp = moveData.pp + '/' + moveData.maxpp;
 					if (!moveData.maxpp) pp = '&ndash;';
 					if (move.id === 'Struggle' || move.id === 'Recharge') pp = '&ndash;';

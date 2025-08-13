@@ -111,7 +111,7 @@
 			Ability: Ball Fetch  
 			Level: 50  
 			Tera Type: Fire  
-			EVs: 252 Atk / 170 SpA / 87 Spe  
+			EVs: 252 Atk / 156 SpA / 101 Spe  
 			IVs: 0 HP  
 			- Fire Attack  
 			- Normal Attack  
@@ -121,7 +121,7 @@
 			Ability: Ball Fetch  
 			Level: 50  
 			Tera Type: Grass  
-			EVs: 252 Atk / 170 SpA / 87 Spe  
+			EVs: 252 Atk / 156 SpA / 101 Spe  
 			IVs: 0 HP  
 			- Grass Attack  
 			- Normal Attack  
@@ -131,7 +131,7 @@
 			Ability: Ball Fetch  
 			Level: 50  
 			Tera Type: Water  
-			EVs: 252 Atk / 170 SpA / 87 Spe  
+			EVs: 252 Atk / 156 SpA / 101 Spe  
 			IVs: 0 HP  
 			- Water Attack  
 			- Normal Attack  

@@ -8,40 +8,40 @@
 		title: 'Teambuilder',
 		initialize: function () {
 			teams = Storage.teams;
-			const teamArray = `Charizard  
-Ability: Ball Fetch  
-Level: 50  
-Tera Type: Fire  
-EVs: 252 Atk / 170 SpA / 87 Spe  
-IVs: 0 HP  
-- Fire Attack  
-- Normal Attack  
-- Grass Attack  
+// 			const teamArray = `Charizard  
+// Ability: Ball Fetch  
+// Level: 50  
+// Tera Type: Fire  
+// EVs: 252 Atk / 156 SpA / 101 Spe  
+// IVs: 0 HP  
+// - Fire Attack  
+// - Normal Attack  
+// - Grass Attack  
 
-Venusaur  
-Ability: Ball Fetch  
-Level: 50  
-Tera Type: Grass  
-EVs: 252 Atk / 170 SpA / 87 Spe  
-IVs: 0 HP  
-- Grass Attack  
-- Normal Attack  
-- Water Attack  
+// Venusaur  
+// Ability: Ball Fetch  
+// Level: 50  
+// Tera Type: Grass  
+// EVs: 252 Atk / 170 SpA / 87 Spe  
+// IVs: 0 HP  
+// - Grass Attack  
+// - Normal Attack  
+// - Water Attack  
 
-Blastoise  
-Ability: Ball Fetch  
-Level: 50  
-Tera Type: Water  
-EVs: 252 Atk / 170 SpA / 87 Spe  
-IVs: 0 HP  
-- Water Attack  
-- Normal Attack  
-- Fire Attack`
-			const parsed = Storage.importTeam(teamArray);
-			const packed = Storage.packTeam(parsed);
-			Storage.teams.push({name: "tom", folder: "", team: packed, format: "gen9anythinggoes" })
-			Storage.saveTeams();
-			Storage.loadTeams();
+// Blastoise  
+// Ability: Ball Fetch  
+// Level: 50  
+// Tera Type: Water  
+// EVs: 252 Atk / 170 SpA / 87 Spe  
+// IVs: 0 HP  
+// - Water Attack  
+// - Normal Attack  
+// - Fire Attack`
+// 			const parsed = Storage.importTeam(teamArray);
+// 			const packed = Storage.packTeam(parsed);
+// 			Storage.teams.push({name: "tom", folder: "", team: packed, format: "gen9anythinggoes" })
+// 			Storage.saveTeams();
+// 			Storage.loadTeams();
 
 
 			// left menu
